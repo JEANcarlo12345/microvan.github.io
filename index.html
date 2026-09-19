@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080a0b">
+<meta name="description" content="Sitio oficial de Microvan. Música, discografía, letras, videos, archivo y novedades.">
+<title>Microvan · Sitio oficial</title>
+<style>
+:root{
+  --bg:#07090b;--bg2:#0c0f12;--panel:#101418;--panel2:#151a1f;--text:#f4f0e9;
+  --muted:#9ea4a8;--gold:#e4b56e;--blue:#6e9fc7;--line:rgba(255,255,255,.11);
+  --shadow:0 28px 90px rgba(0,0,0,.48);--player-h:88px;
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);
+font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;z-index:-2;background:
+radial-gradient(circle at 82% 3%,rgba(228,181,110,.10),transparent 30%),
+radial-gradient(circle at 12% 46%,rgba(76,124,163,.10),transparent 28%),#07090b}
+body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.16;
+background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+background-size:46px 46px;mask-image:linear-gradient(#000,transparent 82%)}
+body.modal-open{overflow:hidden}a{color:inherit;text-decoration:none}button,input{font:inherit}button{color:inherit}
+img{display:block;max-width:100%}.container{width:min(1180px,calc(100% - 38px));margin:auto}
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(6,8,10,.76);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.navin{height:76px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:.15em}
+.brand img{width:62px;height:46px;object-fit:contain}.links{display:flex;align-items:center;gap:20px;color:#c5c8ca;font-size:.9rem}.links a:hover{color:#fff}
+.pill{padding:10px 14px;border:1px solid rgba(228,181,110,.35);border-radius:999px;background:rgba(228,181,110,.07);color:#fff}.navtoggle{display:none;border:0;background:none;font-size:1.45rem}
+
+.hero{min-height:100vh;position:relative;display:grid;align-items:end;padding:120px 0 74px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:-2;background:url("assets/mejor-que-tu-cover.png") center 42%/cover no-repeat;filter:saturate(.8) contrast(1.03)}
+.hero:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(4,6,8,.95) 0%,rgba(4,6,8,.72) 42%,rgba(4,6,8,.24) 72%,rgba(4,6,8,.58) 100%),linear-gradient(0deg,#07090b 0%,transparent 38%,rgba(0,0,0,.22))}
+.hero-copy{max-width:690px}.eyebrow{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:800}
+.hero-logo{width:min(520px,84vw);margin:18px 0 16px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.5))}
+.hero h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.hero p{font-size:1.08rem;line-height:1.8;color:#c7c8c8;max-width:620px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.btn,.solid-btn{border:1px solid var(--line);border-radius:12px;padding:14px 18px;font-weight:800;cursor:pointer;transition:.2s}
+.btn:hover,.solid-btn:hover{transform:translateY(-2px)}.btn.primary,.solid-btn{background:#f4efe6;color:#0a0c0e;border-color:#f4efe6}.btn.ghost{background:rgba(255,255,255,.05);backdrop-filter:blur(10px)}
+.scroll-note{position:absolute;right:32px;bottom:34px;writing-mode:vertical-rl;font-size:.7rem;letter-spacing:.15em;color:#acb0b3;text-transform:uppercase}
+
+section{padding:96px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:34px;margin-bottom:34px}.section-head h2{margin:5px 0 0;font-size:clamp(2.3rem,5vw,4.3rem);letter-spacing:-.055em}.section-head p{max-width:520px;margin:0;color:var(--muted);line-height:1.72}.label{font-size:.73rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:800}
+
+.music-shell{display:grid;grid-template-columns:320px 1fr;gap:18px;align-items:start}.album-rail{display:grid;gap:12px;position:sticky;top:94px}
+.album-card{width:100%;display:grid;grid-template-columns:82px 1fr;gap:14px;text-align:left;padding:10px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);cursor:pointer;transition:.2s}
+.album-card:hover,.album-card.active{background:rgba(255,255,255,.075);border-color:rgba(228,181,110,.34)}
+.album-card img{width:82px;height:82px;object-fit:cover;border-radius:12px}.album-card-copy{min-width:0;display:flex;flex-direction:column;justify-content:center}
+.album-card span,.album-card small{color:var(--muted);font-size:.72rem}.album-card strong{font-size:1.05rem;margin:4px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.catalog-panel{border:1px solid var(--line);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.012));overflow:hidden}
+.album-hero{display:grid;grid-template-columns:230px 1fr;gap:26px;padding:28px;border-bottom:1px solid var(--line)}
+.album-hero-art img{width:230px;height:230px;border-radius:20px;object-fit:cover;box-shadow:var(--shadow)}.album-hero-copy{display:flex;flex-direction:column;justify-content:center}.album-hero-copy h3{font-size:clamp(2.4rem,5vw,4.8rem);letter-spacing:-.06em;line-height:.94;margin:9px 0 12px}.album-hero-copy p{color:var(--muted);line-height:1.72;max-width:660px}.album-hero-copy .solid-btn{align-self:flex-start;margin-top:8px}
+.catalog-tools{display:flex;justify-content:space-between;gap:14px;align-items:center;padding:18px 22px;border-bottom:1px solid var(--line)}.search{flex:1;max-width:420px;border:1px solid var(--line);border-radius:12px;background:#090c0f;color:#fff;padding:12px 14px;outline:none}.search:focus{border-color:rgba(228,181,110,.5)}
+.track-list{padding:4px 12px 12px}.track-row{display:grid;grid-template-columns:42px 42px 1fr 52px 60px 72px;gap:10px;align-items:center;padding:12px 8px;border-bottom:1px solid rgba(255,255,255,.07);border-radius:12px}.track-row:hover,.track-row.playing{background:rgba(255,255,255,.04)}.track-play{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);cursor:pointer}.track-index,.track-duration{color:#737a80;font-size:.78rem}.track-main{min-width:0}.track-main strong,.track-main span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.track-main span{color:var(--muted);font-size:.77rem;margin-top:4px}.text-btn{border:0;background:transparent;color:#bfc3c6;font-size:.76rem;cursor:pointer;padding:8px}.text-btn:hover{color:#fff}.empty{padding:32px;color:var(--muted);text-align:center}
+
+.band-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}.band-photo{min-height:520px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:url("assets/microvan-band.png") center/cover}.band-copy{border:1px solid var(--line);border-radius:24px;padding:36px;background:linear-gradient(140deg,rgba(255,255,255,.045),rgba(255,255,255,.015));display:flex;flex-direction:column;justify-content:center}.band-copy h3{font-size:clamp(2.6rem,6vw,5.2rem);letter-spacing:-.06em;margin:10px 0 16px}.band-copy p{color:var(--muted);line-height:1.8}.hand{font-family:"Segoe Print","Bradley Hand",cursive;color:#ead9bc;font-size:clamp(1.5rem,3vw,2.7rem);margin-top:24px;transform:rotate(-1deg)}
+.members{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:18px}.member{min-height:150px;border:1px solid var(--line);border-radius:18px;padding:16px;background:rgba(255,255,255,.025);display:flex;flex-direction:column;justify-content:flex-end}.member span{color:#70777d;font-size:.72rem}.member strong{margin-top:6px;font-size:1rem}.member small{color:var(--muted);margin-top:4px}
+
+.archive-grid{display:grid;grid-template-columns:1.2fr .8fr .8fr;grid-template-rows:250px 250px;gap:14px}.archive{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--line);background:#101317}.archive:first-child{grid-row:1/3;background:url("assets/backstage.png") center/cover}.archive:nth-child(2){background:url("assets/microvan-band.png") center/cover}.archive:nth-child(3){background:url("assets/portal.png") center/cover}.archive:nth-child(4){background:linear-gradient(135deg,#141719,#31251b)}.archive:nth-child(5){background:linear-gradient(135deg,#0f151b,#1a2c38)}.archive:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.78),transparent 58%)}.archive span{position:absolute;left:16px;bottom:15px;z-index:2;text-transform:uppercase;letter-spacing:.12em;font-size:.75rem}
+
+.video-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:18px}.video-main,.video-side{border:1px solid var(--line);border-radius:24px;overflow:hidden;position:relative;background:#111}.video-main{aspect-ratio:16/9;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.66)),url("assets/mejor-que-tu-cover.png") center/cover;display:grid;place-items:center}.bigplay{width:78px;height:78px;border:0;border-radius:50%;background:#f2eee6;color:#080a0b;font-size:1.35rem;cursor:pointer}.video-side{padding:26px;display:flex;flex-direction:column;justify-content:center}.video-side h3{font-size:2rem;margin:8px 0 12px}.video-side p{color:var(--muted);line-height:1.7}
+
+.shows{display:grid;grid-template-columns:1fr 1fr;gap:18px}.show-card{border:1px solid var(--line);border-radius:22px;padding:28px;background:rgba(255,255,255,.025)}.show-card h3{font-size:1.6rem;margin:8px 0 10px}.show-card p{color:var(--muted);line-height:1.7}.show-card .btn{display:inline-flex;margin-top:8px}
+.socials{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.social{padding:20px;border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.025);display:flex;justify-content:space-between;transition:.2s}.social:hover{transform:translateY(-2px);background:rgba(255,255,255,.06)}
+
+footer{padding:34px 0 calc(38px + var(--player-h));border-top:1px solid var(--line);color:var(--muted)}.foot{display:flex;justify-content:space-between;align-items:center;gap:20px}.footbrand{display:flex;align-items:center;gap:12px;color:#fff;font-weight:900;letter-spacing:.13em}.footbrand img{width:58px;height:40px;object-fit:contain}
+
+.player{position:fixed;left:14px;right:14px;bottom:14px;z-index:70;height:var(--player-h);border:1px solid rgba(255,255,255,.15);border-radius:20px;background:rgba(10,13,16,.94);backdrop-filter:blur(20px);box-shadow:0 18px 55px rgba(0,0,0,.45);display:grid;grid-template-columns:280px 1fr 240px;gap:18px;align-items:center;padding:12px 16px;transform:translateY(140%);transition:.35s}.player.visible{transform:none}.now{display:flex;gap:12px;align-items:center;min-width:0}.now img{width:58px;height:58px;border-radius:10px;object-fit:cover}.now div{min-width:0}.now strong,.now span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.now span{font-size:.75rem;color:var(--muted);margin-top:4px}.controls{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:center}.buttons{display:flex;gap:4px}.iconbtn{width:38px;height:38px;border:0;background:transparent;border-radius:50%;cursor:pointer;color:#d7dadd}.iconbtn:hover,.iconbtn.on{background:rgba(255,255,255,.08);color:var(--gold)}.playbtn{background:#f3eee6;color:#080a0b}.timeline{display:grid;grid-template-columns:38px 1fr 38px;gap:8px;align-items:center;font-size:.68rem;color:#83898e}.timeline input,.volume input{accent-color:#e4b56e;width:100%}.volume{display:flex;align-items:center;gap:8px;color:#858b90;font-size:.75rem}
+
+.modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.76);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}.modal.open{display:grid}.modal-card{width:min(720px,100%);max-height:82vh;overflow:auto;border:1px solid var(--line);border-radius:24px;background:#0d1114;padding:30px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;gap:20px;align-items:start}.modal h3{font-size:2.2rem;margin:0}.close{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:transparent;cursor:pointer}.lyrics{white-space:pre-wrap;color:#d1d3d4;line-height:1.9;margin-top:24px}.credits{color:var(--muted);margin-top:24px;border-top:1px solid var(--line);padding-top:18px}.toast{position:fixed;left:50%;bottom:120px;z-index:100;transform:translate(-50%,20px);opacity:0;background:#f1ece3;color:#0a0c0e;padding:11px 15px;border-radius:999px;font-size:.82rem;transition:.25s;pointer-events:none}.toast.show{transform:translate(-50%,0);opacity:1}
+.reveal{opacity:0;transform:translateY(24px);transition:.75s cubic-bezier(.2,.7,.2,1)}.reveal.visible{opacity:1;transform:none}
+
+@media(max-width:980px){
+  .links{display:none;position:absolute;top:76px;left:18px;right:18px;padding:18px;flex-direction:column;align-items:stretch;background:#0b0e11;border:1px solid var(--line);border-radius:18px}.links.open{display:flex}.navtoggle{display:block}
+  .music-shell{grid-template-columns:1fr}.album-rail{position:static;grid-template-columns:repeat(2,1fr)}.album-hero{grid-template-columns:200px 1fr}.album-hero-art img{width:200px;height:200px}
+  .band-grid,.video-grid{grid-template-columns:1fr}.members{grid-template-columns:repeat(3,1fr)}
+  .player{grid-template-columns:220px 1fr}.volume{display:none}
+}
+@media(max-width:720px){
+  .container{width:min(100% - 24px,1180px)}section{padding:74px 0}.section-head{align-items:flex-start;flex-direction:column}.scroll-note{display:none}
+  .album-rail{grid-template-columns:1fr}.album-hero{grid-template-columns:1fr}.album-hero-art img{width:100%;height:auto;aspect-ratio:1/1}.track-row{grid-template-columns:40px 30px 1fr 45px}.track-row .lyrics-btn,.track-row .credits-btn{display:none}
+  .members{grid-template-columns:1fr 1fr}.archive-grid{grid-template-columns:1fr 1fr;grid-template-rows:260px 210px 210px}.archive:first-child{grid-column:1/3;grid-row:auto}
+  .shows,.socials{grid-template-columns:1fr 1fr}.player{left:8px;right:8px;bottom:8px;height:auto;grid-template-columns:1fr;padding:10px 12px;gap:8px}.now img{width:48px;height:48px}.controls{grid-template-columns:auto 1fr}.timeline{grid-template-columns:32px 1fr 32px}.player .now{display:none}
+}
+@media(max-width:500px){
+  .hero{padding-bottom:56px}.hero p{font-size:1rem}.actions{flex-direction:column;align-items:stretch}.btn{text-align:center;justify-content:center}
+  .archive-grid{grid-template-columns:1fr;grid-template-rows:repeat(5,210px)}.archive:first-child{grid-column:auto}.members,.shows,.socials{grid-template-columns:1fr}
+  .catalog-tools{align-items:stretch;flex-direction:column}.search{max-width:none}.foot{align-items:flex-start;flex-direction:column}
+  .buttons .iconbtn:nth-child(1),.buttons .iconbtn:nth-child(5){display:none}
+}
+
+.merch-toolbar{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:22px}
+.merch-filter{display:flex;gap:8px;flex-wrap:wrap}
+.filter-btn{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.025);padding:9px 13px;cursor:pointer;color:#c7cacc;font-size:.8rem}
+.filter-btn.active,.filter-btn:hover{background:#f1ece3;color:#0a0c0e;border-color:#f1ece3}
+.merch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.merch-card{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.015));transition:.25s}
+.merch-card:hover{transform:translateY(-4px);border-color:rgba(228,181,110,.35)}
+.merch-image{aspect-ratio:1/1;overflow:hidden;background:#101317}
+.merch-image img{width:100%;height:100%;object-fit:cover;transition:.4s}
+.merch-card:hover .merch-image img{transform:scale(1.025)}
+.merch-copy{padding:18px}.merch-copy .label{font-size:.66rem}.merch-copy h3{font-size:1.25rem;margin:7px 0 6px}
+.merch-copy p{margin:0;color:var(--muted);font-size:.8rem}
+.merch-buy{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.ml-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:12px;padding:11px 14px;background:#ffe600;color:#272727;font-weight:900;font-size:.82rem}
+.ml-btn:hover{filter:brightness(.96)}.merch-note{color:#7f858a;font-size:.75rem}
+.player-close{position:absolute;top:-12px;right:-10px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:#0b0e11;color:#fff;cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.player-close:hover{background:#1b2025}
+.player-reopen{position:fixed;right:18px;bottom:18px;z-index:69;width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.15);background:rgba(10,13,16,.94);backdrop-filter:blur(16px);color:#fff;display:none;place-items:center;cursor:pointer;box-shadow:0 12px 35px rgba(0,0,0,.4)}
+.player-reopen.show{display:grid}
+@media(max-width:900px){.merch-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.merch-grid{grid-template-columns:1fr}.merch-toolbar{align-items:flex-start;flex-direction:column}}
+
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="container navin">
+    <a class="brand" href="#inicio"><img src="assets/microvan-logo.png" alt="Logo Microvan"><span>MICROVAN</span></a>
+    <div class="links" id="navLinks">
+      <a href="#musica">Música</a>
+      <a href="#banda">La banda</a>
+      <a href="#archivo">Archivo</a>
+      <a href="#merch">Merch</a>
+      <a href="#videos">Videos</a>
+      <a href="#conciertos">Conciertos</a>
+      <a class="pill" href="#contacto">Contacto</a>
+    </div>
+    <button class="navtoggle" id="navToggle" aria-label="Abrir menú">☰</button>
+  </div>
+</nav>
+
+<main>
+<section class="hero" id="inicio">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Banda peruana · Sitio oficial</div>
+      <img class="hero-logo" src="assets/microvan-logo.png" alt="Microvan">
+      <h1>Microvan</h1>
+      <p>Buenas canciones, mejores amigos. Música, historias, recuerdos, ensayos y conciertos reunidos en un solo lugar.</p>
+      <div class="actions">
+        <a class="btn primary" href="#musica">▶ Escuchar Microvan</a>
+        <a class="btn ghost" href="#archivo">Entrar al archivo</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-note">desliza para descubrir</div>
+</section>
+
+<section id="musica">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Discografía</div><h2>Repositorio de canciones</h2></div>
+      <p>Explora los lanzamientos por álbum o single, reproduce los temas y consulta letras y créditos sin salir de la web.</p>
+    </div>
+    <div class="music-shell">
+      <aside class="album-rail reveal" id="albumRail"></aside>
+      <div class="catalog-panel reveal">
+        <div class="album-hero" id="albumView"></div>
+        <div class="catalog-tools">
+          <input class="search" id="songSearch" type="search" placeholder="Buscar canción...">
+          <span class="label">Catálogo Microvan</span>
+        </div>
+        <div class="track-list" id="trackList"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="banda">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Microvan</div><h2>La banda</h2></div>
+      <p>Una banda de cinco integrantes conectada por la música y por todo lo que ocurre alrededor de ella.</p>
+    </div>
+    <div class="band-grid">
+      <div class="band-photo reveal"></div>
+      <div class="band-copy reveal">
+        <div class="label">Nuestra historia</div>
+        <h3>Buenas canciones.<br>Mejores amigos.</h3>
+        <p>Microvan reúne música, amistad y recuerdos en canciones. La web funciona también como archivo de la banda: cada lanzamiento puede guardar su portada, letra, créditos, fotografías y material detrás de cámaras.</p>
+        <div class="hand">La música también nos salva ♡</div>
+      </div>
+    </div>
+    <div class="members reveal">
+      <div class="member"><span>01</span><strong>Integrante</strong><small>Nombre / instrumento</small></div>
+      <div class="member"><span>02</span><strong>Integrante</strong><small>Nombre / instrumento</small></div>
+      <div class="member"><span>03</span><strong>Integrante</strong><small>Nombre / instrumento</small></div>
+      <div class="member"><span>04</span><strong>Integrante</strong><small>Nombre / instrumento</small></div>
+      <div class="member"><span>05</span><strong>Integrante</strong><small>Nombre / instrumento</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="archivo">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Archivo Microvan</div><h2>Lo que queda detrás</h2></div>
+      <p>Un lugar para fotos antiguas, flyers, ensayos, setlists, portadas, conciertos y material que normalmente se pierde en redes.</p>
+    </div>
+    <div class="archive-grid">
+      <div class="archive reveal"><span>Backstage</span></div>
+      <div class="archive reveal"><span>La banda</span></div>
+      <div class="archive reveal"><span>Historias</span></div>
+      <div class="archive reveal"><span>Setlists</span></div>
+      <div class="archive reveal"><span>Conciertos</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="videos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Visuales</div><h2>Videos & sesiones</h2></div>
+      <p>Videoclips, visualizers, sesiones en vivo, reels y material de backstage.</p>
+    </div>
+    <div class="video-grid">
+      <div class="video-main reveal"><button class="bigplay" onclick="document.getElementById('musica').scrollIntoView()">▶</button></div>
+      <div class="video-side reveal"><div class="label">Destacado</div><h3>Mejor que tú</h3><p>Bloque listo para reemplazar por el videoclip o visualizer oficial de YouTube cuando esté publicado.</p></div>
+    </div>
+  </div>
+</section>
+
+
+<section id="merch">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Tienda</div><h2>Merch Microvan</h2></div>
+      <p>Explora productos oficiales de la banda. Cada producto abre su publicación en Mercado Libre en una nueva pestaña.</p>
+    </div>
+    <div class="merch-toolbar reveal">
+      <div class="merch-filter" id="merchFilters"></div>
+      <div class="merch-note">Compra gestionada externamente por Mercado Libre</div>
+    </div>
+    <div class="merch-grid" id="merchGrid"></div>
+  </div>
+</section>
+
+<section id="conciertos">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">En vivo</div><h2>Conciertos</h2></div>
+      <p>Fechas futuras y archivo de shows pasados, con fotos y setlist de cada presentación.</p>
+    </div>
+    <div class="shows">
+      <div class="show-card reveal"><div class="label">Próximas fechas</div><h3>Nuevos shows por anunciar</h3><p>Cuando tengan una fecha confirmada, aquí puede aparecer ciudad, local, horario y enlace de entradas.</p><a class="btn ghost" href="#contacto">Recibir novedades</a></div>
+      <div class="show-card reveal"><div class="label">Archivo en vivo</div><h3>Shows pasados</h3><p>Guarda la historia de cada concierto: flyer, fotos, videos, repertorio y recuerdos del show.</p><a class="btn ghost" href="#archivo">Ver archivo</a></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto">
+  <div class="container">
+    <div class="section-head reveal">
+      <div><div class="label">Conecta</div><h2>Encuentra a Microvan</h2></div>
+      <p>Los enlaces están preparados para reemplazarlos con las cuentas oficiales de la banda.</p>
+    </div>
+    <div class="socials">
+      <a class="social reveal" href="#"><span>Instagram</span><b>↗</b></a>
+      <a class="social reveal" href="#"><span>TikTok</span><b>↗</b></a>
+      <a class="social reveal" href="#"><span>YouTube</span><b>↗</b></a>
+      <a class="social reveal" href="#"><span>Spotify</span><b>↗</b></a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container foot">
+    <div class="footbrand"><img src="assets/microvan-logo.png" alt=""><span>MICROVAN</span></div>
+    <div>© 2026 Microvan · Sitio oficial</div>
+  </div>
+</footer>
+
+<audio id="audio" preload="metadata"></audio>
+<div class="player" id="player">
+  <button class="player-close" id="playerClose" title="Cerrar reproductor" aria-label="Cerrar reproductor">×</button>
+  <div class="now"><img id="playerCover" src="assets/mejor-que-tu-cover.png" alt=""><div><strong id="playerTitle">Mejor que tú</strong><span id="playerAlbum">Microvan</span></div></div>
+  <div class="controls">
+    <div class="buttons">
+      <button class="iconbtn" id="shuffleBtn" title="Aleatorio">⌘</button>
+      <button class="iconbtn" id="prevBtn" title="Anterior">◀</button>
+      <button class="iconbtn playbtn" id="playBtn" title="Reproducir">▶</button>
+      <button class="iconbtn" id="nextBtn" title="Siguiente">▶</button>
+      <button class="iconbtn" id="repeatBtn" title="Repetir">↻</button>
+    </div>
+    <div class="timeline"><span id="currentTime">0:00</span><input id="progress" type="range" min="0" max="100" value="0"><span id="totalTime">0:00</span></div>
+  </div>
+  <div class="volume"><span>Vol.</span><input id="volume" type="range" min="0" max="1" value=".85" step=".01"></div>
+</div>
+<button class="player-reopen" id="playerReopen" title="Abrir reproductor" aria-label="Abrir reproductor">♪</button>
+
+<div class="modal" id="lyricsModal">
+  <div class="modal-card">
+    <div class="modal-head"><div><div class="label">Canción</div><h3 id="lyricsTitle"></h3></div><button class="close" id="closeModal">×</button></div>
+    <div class="lyrics" id="lyricsText"></div>
+    <div class="credits" id="creditsText"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script src="js/catalog.js"></script>
+<script src="js/merch.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
